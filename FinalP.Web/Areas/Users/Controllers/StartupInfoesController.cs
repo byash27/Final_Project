@@ -27,6 +27,14 @@ namespace FinalP.Web.Areas.Users.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+
+        // GET: Users/StartupInfoes   (For USER PART)
+        public async Task<IActionResult> Index2()
+        {
+            var applicationDbContext = _context.StartupInfos.Include(s => s.Customer).Include(s => s.SubCategory);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
         // GET: Users/StartupInfoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -55,6 +63,10 @@ namespace FinalP.Web.Areas.Users.Controllers
             return View();
         }
 
+
+
+
+
         // POST: Users/StartupInfoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -66,7 +78,7 @@ namespace FinalP.Web.Areas.Users.Controllers
             {
                 _context.Add(startupInfo);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index2));           // For redirecting in user portal
             }
             ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "CustomerName", startupInfo.CustomerId);
             ViewData["Id"] = new SelectList(_context.SubCategories, "Id", "SubCategories", startupInfo.Id);

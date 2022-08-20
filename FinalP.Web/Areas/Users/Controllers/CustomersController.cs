@@ -26,6 +26,13 @@ namespace FinalP.Web.Areas.Users.Controllers
             return View(await _context.Customers.ToListAsync());
         }
 
+
+        // GET: Users/Customers  (User part)
+        public async Task<IActionResult> Index2()
+        {
+            return View(await _context.Customers.ToListAsync());
+        }
+
         // GET: Users/Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -61,7 +68,7 @@ namespace FinalP.Web.Areas.Users.Controllers
             {
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index2));     // For redirecting in user portal
             }
             return View(customer);
         }
